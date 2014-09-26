@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Employees>
+<Employee>
+<SSN>555121211</SSN>
+<Name>John Doe</Name>
+<DateOfBirth>1975-05-15</DateOfBirth>
+<EmployeeType>Exempt</EmployeeType>
+<Salary>100000</Salary>
+</Employee>
+<test>
+<dir name="D:\Data\"/>
+</test>
+</Employees>
