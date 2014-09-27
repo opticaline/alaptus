@@ -2,7 +2,7 @@
 <Employees xmlns="http://opticaline.org"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://opticaline.org config.xsd">
-    <Employee>
+    <Employee >
         <SSN>555121211</SSN>
         <Name>John Doe</Name>
         <DateOfBirth>1975-05-15</DateOfBirth>

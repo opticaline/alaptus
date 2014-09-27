@@ -14,10 +14,11 @@ public class ConfigurationTest {
     public static void main(String[] args) throws ConfigurationException, ParserConfigurationException, IOException, SAXException {
         Parameters params = new Parameters();
         FileBasedConfigurationBuilder<XMLConfiguration> builder =
-                new FileBasedConfigurationBuilder<XMLConfiguration>(XMLConfiguration.class)
+                new FileBasedConfigurationBuilder<>(XMLConfiguration.class)
                         .configure(params.xml()
                                 .setFileName("config.xml")
                                 .setSchemaValidation(true));
+
 
 // This will throw a ConfigurationException if the XML document does not
 // conform to its DTD.
