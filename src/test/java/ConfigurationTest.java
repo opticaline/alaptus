@@ -4,8 +4,6 @@ import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
@@ -18,16 +16,16 @@ public class ConfigurationTest {
         FileBasedConfigurationBuilder<XMLConfiguration> builder =
                 new FileBasedConfigurationBuilder<XMLConfiguration>(XMLConfiguration.class)
                         .configure(params.xml()
-                                        .setFileName("config.xml")
-                                /*.setValidating(true)*/);
+                                .setFileName("config.xml")
+                                .setSchemaValidation(true));
 
 // This will throw a ConfigurationException if the XML document does not
 // conform to its DTD.
         XMLConfiguration config = builder.getConfiguration();
-        config.addProperty("test.dir[@name]", "C:\\Temp\\");
-        config.addProperty("test.dir[@name]", "D:\\Data\\");
-        System.out.println(config.getString("test.dir[@name]"));
-        System.out.println(config.getString("Employee.EmployeeType"));
+        //config.addProperty("test.dir[@name]", "C:\\Temp\\");
+        //config.addProperty("test.dir[@name]", "D:\\Data\\");
+        //System.out.println(config.getString("test.dir[@name]"));
+        System.out.println(config.getInt("Employee.Salary"));
 
         builder.save();
     }

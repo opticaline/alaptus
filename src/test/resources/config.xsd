@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://opticaline.org"
+           xmlns="http://opticaline.org"
+           elementFormDefault="qualified">
+
+    <xs:element name="Employees">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Employee">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="SSN" type="xs:int"/>
+                            <xs:element name="Name" type="xs:string"/>
+                            <xs:element name="DateOfBirth" type="xs:date"/>
+                            <xs:element name="EmployeeType" type="xs:string"/>
+                            <xs:element name="Salary" type="xs:int"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
