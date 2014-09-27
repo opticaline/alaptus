@@ -1,1 +1,1 @@
-# Persional javaweb framework
+# Personal javaweb framework
