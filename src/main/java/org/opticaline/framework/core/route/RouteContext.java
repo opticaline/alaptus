@@ -95,9 +95,7 @@ public class RouteContext extends AbstractRouteNode implements Context {
     }
 
     private RouteBean getRouteForRegex(String[] paths, HttpMethod httpMethod) {
-        Iterator iterator = this.routeNodeMap.keySet().iterator();
-        while (iterator.hasNext()) {
-            String key = (String) iterator.next();
+        for (String key : this.routeNodeMap.keySet()) {
             if (paths[0].matches(key)) {
                 this.setUriParameter(paths[0], key);
                 AbstractRouteNode abstractRouteNode = this.routeNodeMap.get(key);

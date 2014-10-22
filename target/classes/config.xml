@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Employees>
-<Employee>
-<SSN>555121211</SSN>
-<Name>John Doe</Name>
-<DateOfBirth>1975-05-15</DateOfBirth>
-<EmployeeType>Exempt</EmployeeType>
-<Salary>100000</Salary>
-</Employee>
-<test>
-<dir name="D:\Data\"/>
-</test>
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Employees xmlns="http://opticaline.org"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://opticaline.org config.xsd">
+    <Employee>
+        <SSN>555121211</SSN>
+        <Name>John Doe</Name>
+        <DateOfBirth>1975-05-15</DateOfBirth>
+        <EmployeeType>Exempt</EmployeeType>
+        <Salary>100000</Salary>
+    </Employee>
 </Employees>

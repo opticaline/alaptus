@@ -16,4 +16,10 @@ public @interface Route {
     String value();
 
     HttpMethod method() default HttpMethod.GET;
+
+    Scope scope() default Scope.SINGLETON;
+
+    enum Scope {
+        REQUEST, SESSION, SINGLETON
+    }
 }

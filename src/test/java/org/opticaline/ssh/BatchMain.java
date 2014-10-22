@@ -5,6 +5,6 @@ package org.opticaline.ssh;
  */
 public class BatchMain {
     public static void main(String[] args) throws Exception {
-        RunBatch.run("");
+        new Batch("config.xml").run();
     }
 }

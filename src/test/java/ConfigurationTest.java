@@ -1,11 +1,15 @@
 import org.apache.commons.configuration2.XMLConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
+import org.apache.commons.configuration2.convert.ConversionHandler;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.configuration2.interpol.ConfigurationInterpolator;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * Created by Nathan on 2014/9/27.
@@ -23,11 +27,10 @@ public class ConfigurationTest {
 // This will throw a ConfigurationException if the XML document does not
 // conform to its DTD.
         XMLConfiguration config = builder.getConfiguration();
-        //config.addProperty("test.dir[@name]", "C:\\Temp\\");
-        //config.addProperty("test.dir[@name]", "D:\\Data\\");
-        //System.out.println(config.getString("test.dir[@name]"));
-        System.out.println(config.getInt("Employee.Salary"));
-
-        builder.save();
+        System.out.println(config.getList("login.forwards.forward[@ip]"));
+        /*String forwards[] = (String[]) config.getArray(String.class, "login.forwards.forward");
+        for (String s : forwards) {
+            System.out.println(s);
+        }*/
     }
 }

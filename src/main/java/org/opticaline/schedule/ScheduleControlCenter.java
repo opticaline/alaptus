@@ -26,9 +26,7 @@ public class ScheduleControlCenter implements ControlCenter {
                 Method staticMethod = cls.getDeclaredMethod("test");
                 Task task = (Task)staticMethod.getAnnotations()[0];
                 put(Cron.load(task.value()), staticMethod);
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (IllegalCronException e) {
+            } catch (NoSuchMethodException | IllegalCronException e) {
                 e.printStackTrace();
             }
         }}).start();
@@ -93,6 +91,6 @@ public class ScheduleControlCenter implements ControlCenter {
 
     @Task("*/5 * * * * *")
     public static void test() {
-        System.out.println("test");
+        System.out.println("Method print: " + LocalDateTime.now());
     }
 }
