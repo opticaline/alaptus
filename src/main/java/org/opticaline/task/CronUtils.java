@@ -1,9 +1,6 @@
 package org.opticaline.task;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalField;
-import java.util.Arrays;
 
 /**
  * Created by Nathan on 2014/10/22.
@@ -61,12 +58,15 @@ public class CronUtils {
     }
 
     private static class CronCal {
-        private static int[] SECTION = new int[]{59, 59, 23, 31, 12, 6};
         private String cron;
 
         public CronCal setCron(String cron) {
             this.cron = cron;
             return this;
+        }
+
+        public static int getLevelMaxLength(LocalDateTime now, int level) {
+            return new int[]{60, 60, 24, now.getMonth().maxLength() + 1, 13, 7}[level];
         }
 
         public LocalDateTime next(LocalDateTime now) {
@@ -79,25 +79,44 @@ public class CronUtils {
 
         private LocalDateTime exec(String str, int level, LocalDateTime now) {
             String[] t = str.split("/");
-            String section = t[0];
-            int each = Integer.valueOf(t.length == 2 ? t[1] : "");
-            if (section.equals("*")) {
+            String section = null;
+            int each = 0;
+            if (t.length == 2) {
+                section = t[0];
+                if (level == 6) {
+                    section = section.replace("7", "0");
+                }
+                each = Integer.valueOf(t[1]);
+            } else if (t.length == 1) {
+                if (t[0].equals("*")) {
+                    return now;
+                }
+                each = Integer.valueOf(t[0]);
+            }
+            if (section != null && section.equals("*")) {
                 //
             }
-            if (level == 6) {
-                section = section.replace("7", "0");
-            }
-            int max = SECTION[level];
             int temp = getTimeByLevel(now, level);
-            temp = temp / each * each + each;
-            temp = temp > max ? temp - max : temp;
+            if (temp % each != 0) {
+                temp = temp / each * each + each;
+            }
             return execTimeByLevel(now, level, temp);
         }
 
         private LocalDateTime execTimeByLevel(LocalDateTime now, int level, int count) {
+            if (level < 7) {
+                int max = getLevelMaxLength(now, level);
+                if (count >= max) {
+                    count = count - max;
+                    now = execTimeByLevel(now, level + 1, getTimeByLevel(now, level + 1) + 1);
+                }
+            }
+            if ((level == 4 || level == 3) && count == 0) {
+                count = 1;
+            }
             switch (level) {
                 case 0:
-                     return now.withSecond(count);
+                    return now.withSecond(count);
                 case 1:
                     return now.withMinute(count);
                 case 2:
@@ -124,11 +143,17 @@ public class CronUtils {
                 case 3:
                     return now.getDayOfMonth();
                 case 4:
-                    return now.getMonth().maxLength();
+                    return now.getMonth().getValue();
                 case 5:
                     return now.getDayOfWeek().getValue();
             }
+            System.out.println("sdf");
             return -1;
         }
+    }
+
+    public static void main(String[] args) {
+        LocalDateTime time = LocalDateTime.of(2014, 12, 1, 23, 0, 58);
+        System.out.println(CronUtils.nextTime("5 5 * * * *", time));
     }
 }
