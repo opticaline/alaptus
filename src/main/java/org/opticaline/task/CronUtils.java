@@ -1,5 +1,7 @@
 package org.opticaline.task;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.time.LocalDateTime;
 
 /**
@@ -77,24 +79,49 @@ public class CronUtils {
             return now;
         }
 
+        /*private LocalDateTime checkSection(LocalDateTime now, int[] rightTime, int level) {
+            if (rightTime != null && rightTime.length > 0) {
+                int num = getTimeByLevel(now, level);
+                if (num < rightTime[0]) {
+                    now = execTimeByLevel(now, level, rightTime[0]);
+                } else if (num > rightTime[rightTime.length - 1]) {
+                    int temp = getTimeByLevel(now, level + 1);
+                    now = execTimeByLevel(now, level + 1, temp + 1);
+                    now = execTimeByLevel(now, level, rightTime[0]);
+                    for(int i = 0 ; i < level;i++)
+                        now = execTimeByLevel(now, i, 0);
+                    // now = checkSection(now);
+                }
+            }
+            return now;
+        }*/
+
         private LocalDateTime exec(String str, int level, LocalDateTime now) {
             String[] t = str.split("/");
             String section = null;
             int each = 0;
+            int[] rightTime = new int[0];
             if (t.length == 2) {
                 section = t[0];
+                each = t[1].equals("*") ? 1 : Integer.valueOf(t[1]);
                 if (level == 6) {
                     section = section.replace("7", "0");
                 }
-                each = Integer.valueOf(t[1]);
+                String[] s = section.split("-");
+                int begin = Integer.valueOf(s[0]), end = 0;
+                if (s.length == 2) {
+                    end = Integer.valueOf(s[1]);
+                }
+                rightTime = new int[(end - begin + 1) <= 0 ? 1 : (end - begin + 1)];
+                for (int i = begin; i <= end; i++) {
+                    rightTime[i - begin] = i;
+                }
+                rightTime[0] = begin;
             } else if (t.length == 1) {
                 if (t[0].equals("*")) {
                     return now;
                 }
                 each = Integer.valueOf(t[0]);
-            }
-            if (section != null && section.equals("*")) {
-                //
             }
             int temp = getTimeByLevel(now, level);
             if (temp % each != 0) {
@@ -108,7 +135,7 @@ public class CronUtils {
                 int max = getLevelMaxLength(now, level);
                 if (count >= max) {
                     count = count - max;
-                    now = execTimeByLevel(now, level + 1, getTimeByLevel(now, level + 1) + 1);
+                    execTimeByLevel(now, level + 1, getTimeByLevel(now, level + 1) + 1);
                 }
             }
             if ((level == 4 || level == 3) && count == 0) {
@@ -147,13 +174,12 @@ public class CronUtils {
                 case 5:
                     return now.getDayOfWeek().getValue();
             }
-            System.out.println("sdf");
             return -1;
         }
     }
 
     public static void main(String[] args) {
-        LocalDateTime time = LocalDateTime.of(2014, 12, 1, 23, 0, 58);
-        System.out.println(CronUtils.nextTime("5 5 * * * *", time));
+        LocalDateTime time = LocalDateTime.of(2014, 12, 1, 23, 5, 51);
+        System.out.println(CronUtils.nextTime("5 1-5/5 22/* * * *", time));
     }
 }
