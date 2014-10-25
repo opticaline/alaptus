@@ -1,7 +1,5 @@
 package org.opticaline.task;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.time.LocalDateTime;
 
 /**
