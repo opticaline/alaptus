@@ -107,13 +107,15 @@ public class CronUtils {
                 if (level == 6) {
                     section = section.replace("7", "0");
                 }
-                String[] s = section.split("-");
-                int max = Integer.valueOf(s[0]), min = max;
-                if (s.length == 2) {
-                    max = Integer.valueOf(s[1]);
+                if (!section.equals("*")) {
+                    String[] s = section.split("-");
+                    int max = Integer.valueOf(s[0]), min = max;
+                    if (s.length == 2) {
+                        max = Integer.valueOf(s[1]);
+                    }
+                    setLevel_max(level, max);
+                    setLevel_min(level, min);
                 }
-                setLevel_max(level, max);
-                setLevel_min(level, min);
             } else if (t.length == 1) {
                 if (t[0].equals("*")) {
                     return now;
@@ -121,9 +123,7 @@ public class CronUtils {
                 each = Integer.valueOf(t[0]);
             }
             int temp = getTimeByLevel(now, level);
-            if (temp % each != 0) {
-                temp = temp / each * each + each;
-            }
+            temp = temp / each * each + each;
             return execTimeByLevel(now, level, temp);
         }
 
@@ -132,7 +132,15 @@ public class CronUtils {
                 int max = getLevelMaxLength(level), min = getLevelMinLength(level);
                 while (count >= max) {
                     count = count - max;
-                    now = execTimeByLevel(now, level + 1, getTimeByLevel(now, level + 1) + 1);
+                    int next, iNext = level;
+                    if (iNext == 4) {
+                        iNext = 10;
+                        next = now.getYear() + 1;
+                    } else {
+                        iNext += 1;
+                        next = getTimeByLevel(now, iNext) + 1;
+                    }
+                    now = execTimeByLevel(now, iNext, next);
                     for (int i = 0; i < level; i++) {
                         now = execTimeByLevel(now, i, getLevelMinLength(i));
                     }
@@ -158,6 +166,8 @@ public class CronUtils {
                 case 5:
                     //TODO 设置下一个周几的日期
                     return now.withDayOfMonth(count);
+                case 10:
+                    return now.withYear(count);
             }
             return now;
         }
@@ -182,7 +192,7 @@ public class CronUtils {
     }
 
     public static void main(String[] args) {
-        LocalDateTime time = LocalDateTime.of(2014, 12, 1, 23, 5, 51);
-        System.out.println(CronUtils.nextTime("5 6-9/5 22/* * * *", time));
+        LocalDateTime time = LocalDateTime.of(2014, 12, 31, 23, 59, 59);
+        System.out.println(CronUtils.nextTime("*/1 * * * * *", time));
     }
 }
