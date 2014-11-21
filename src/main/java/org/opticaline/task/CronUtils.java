@@ -18,6 +18,7 @@ public class CronUtils {
         String dayRegex = join(DaysOfWeek.values());
 
         CRON_REGEX = "((([0-5]?[0-9])|\\*)(-[0-5]?[0-9])?(/\\d+)?\\s+){1,2}" +
+                "(([0-5]?[0-9])|\\*)(-[0-5]?[0-9])?(/\\d+)?\\s+){1,2}" +
                 "(([0-2]?[0-9])|\\*)(-[0-2]?[0-9])?(/\\d+)?\\s+" +
                 "(([0-3]?[0-9])|\\*)(-[0-3]?[0-9])?(/\\d+)?\\s+" +
                 "(([0-1]?[0-9])|\\*|" + mouthRegex + ")(-[0-1]?[0-9]|" + mouthRegex + ")?(/\\d+)?\\s+" +
@@ -46,6 +47,11 @@ public class CronUtils {
     }
 
     public static String format(String cron) {
+        if(validate(cron)){
+            //TODO 当检测到cron表达式不合法时的异常处理
+            //throw new IllegalCronExpException();
+        }
+        //TODO 将cron表达式中的字符串替换为对应的数字，如JAN应替换为Mouths.JAN.value()
         return cron;
     }
 
