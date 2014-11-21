@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ddfcd052-f26a-4e44-bc5f-44a7ea544193" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/opticaline/task/CronUtils.java" afterPath="$PROJECT_DIR$/src/main/java/org/opticaline/task/CronUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/framework.iml" afterPath="$PROJECT_DIR$/framework.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="framework.iws" />
@@ -37,9 +35,18 @@
       <file leaf-file-name="CronUtils.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/opticaline/task/CronUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.69439423" vertical-offset="360" max-vertical-offset="4680">
-              <caret line="31" column="48" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="48" />
-              <folding />
+            <state vertical-scroll-proportion="0.4629295" vertical-offset="3128" max-vertical-offset="6000">
+              <caret line="151" column="23" selection-start-line="151" selection-start-column="23" selection-end-line="151" selection-end-column="23" />
+              <folding>
+                <element signature="e#1682#1683#0" expanded="true" />
+                <element signature="e#1720#1721#0" expanded="true" />
+                <element signature="e#1750#1751#0" expanded="true" />
+                <element signature="e#1791#1792#0" expanded="true" />
+                <element signature="e#2434#2435#0" expanded="true" />
+                <element signature="e#2472#2473#0" expanded="true" />
+                <element signature="e#2502#2503#0" expanded="true" />
+                <element signature="e#2543#2544#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -62,8 +69,8 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/test/java/Main.java" />
         <option value="$PROJECT_DIR$/src/test/java/org/opticaline/FontModel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/opticaline/task/CronUtils.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/main/java/org/opticaline/task/CronUtils.java" />
       </list>
     </option>
   </component>
@@ -987,7 +994,7 @@
       <workItem from="1416190836153" duration="4787000" />
       <workItem from="1416274472123" duration="1998000" />
       <workItem from="1416280188655" duration="685000" />
-      <workItem from="1416541810598" duration="3148000" />
+      <workItem from="1416541810598" duration="4030000" />
     </task>
     <task id="LOCAL-00001" summary="new file">
       <created>1411786083486</created>
@@ -1037,11 +1044,17 @@
       <option name="project" value="LOCAL" />
       <updated>1415759945646</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="优化CronUtils类的static代码块">
+      <created>1416562288094</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1416562288101</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124300000" />
+    <option name="totallyTimeSpent" value="125182000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1065,7 +1078,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1123,7 +1136,8 @@
     <MESSAGE value="完成不限定时间区域的cron表达式功能" />
     <MESSAGE value="时间区间已经从字符串提取出来，区间的判断还存在问题" />
     <MESSAGE value="添加时间测试类" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加时间测试类" />
+    <MESSAGE value="优化CronUtils类的static代码块" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化CronUtils类的static代码块" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1140,7 +1154,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4656">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#1682#1683#0" expanded="true" />
+            <element signature="e#1720#1721#0" expanded="true" />
+            <element signature="e#1750#1751#0" expanded="true" />
+            <element signature="e#1791#1792#0" expanded="true" />
+            <element signature="e#2434#2435#0" expanded="true" />
+            <element signature="e#2472#2473#0" expanded="true" />
+            <element signature="e#2502#2503#0" expanded="true" />
+            <element signature="e#2543#2544#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1585,9 +1608,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/opticaline/task/CronUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.69439423" vertical-offset="360" max-vertical-offset="4680">
-          <caret line="31" column="48" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="48" />
-          <folding />
+        <state vertical-scroll-proportion="0.4629295" vertical-offset="3128" max-vertical-offset="6000">
+          <caret line="151" column="23" selection-start-line="151" selection-start-column="23" selection-end-line="151" selection-end-column="23" />
+          <folding>
+            <element signature="e#1682#1683#0" expanded="true" />
+            <element signature="e#1720#1721#0" expanded="true" />
+            <element signature="e#1750#1751#0" expanded="true" />
+            <element signature="e#1791#1792#0" expanded="true" />
+            <element signature="e#2434#2435#0" expanded="true" />
+            <element signature="e#2472#2473#0" expanded="true" />
+            <element signature="e#2502#2503#0" expanded="true" />
+            <element signature="e#2543#2544#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -50,11 +50,65 @@ public class CronUtils {
     }
 
     public enum Mouths {
-        JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC
+        JAN(1), FEB(2), MAR(3), APR(4), MAY(5), JUN(6), JUL(7), AUG(8), SEP(9), OCT(10), NOV(11), DEC(12);
+        private int value;
+
+        Mouths(int i) {
+            this.value = i;
+        }
+
+        public int value() {
+            return this.value;
+        }
+
+        public Mouths getOf(String str) {
+            for (Mouths mouth : Mouths.values()) {
+                if (mouth.toString().equalsIgnoreCase(str)) {
+                    return mouth;
+                }
+            }
+            return null;
+        }
+
+        public Mouths getOf(int i) {
+            for (Mouths mouth : Mouths.values()) {
+                if (mouth.value == i) {
+                    return mouth;
+                }
+            }
+            return null;
+        }
     }
 
     public enum DaysOfWeek {
-        SUN, MON, TUE, WED, THU, FRI, SAT
+        SUN(0), MON(1), TUE(2), WED(3), THU(4), FRI(5), SAT(6);
+        private int value;
+
+        DaysOfWeek(int i) {
+            this.value = i;
+        }
+
+        public int value() {
+            return this.value;
+        }
+
+        public DaysOfWeek getOf(String str) {
+            for (DaysOfWeek daysOfWeek : DaysOfWeek.values()) {
+                if (daysOfWeek.toString().equalsIgnoreCase(str)) {
+                    return daysOfWeek;
+                }
+            }
+            return null;
+        }
+
+        public DaysOfWeek getOf(int i) {
+            for (DaysOfWeek daysOfWeek : DaysOfWeek.values()) {
+                if (daysOfWeek.value == i) {
+                    return daysOfWeek;
+                }
+            }
+            return null;
+        }
     }
 
     private static class CronCal {
@@ -193,6 +247,7 @@ public class CronUtils {
     }
 
     public static void main(String[] args) {
+        System.out.println(DaysOfWeek.FRI.value);
         LocalDateTime time = LocalDateTime.of(2014, 12, 31, 23, 59, 59);
         System.out.println(CronUtils.nextTime("*/1 * * * * ?", time));
     }
