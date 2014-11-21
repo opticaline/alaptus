@@ -10,26 +10,26 @@ public class CronUtils {
     private static CronCal CAL = new CronCal();
 
     static {
-        String mouthRegex;
-        String dayRegex;
-        StringBuffer sb = new StringBuffer();
-        for (Mouths mouth : Mouths.values()) {
-            sb.append(mouth).append("|");
-        }
-        mouthRegex = sb.substring(0, sb.length() - 1);
+        initCronRegex();
+    }
 
-        sb = new StringBuffer();
-        for (DaysOfWeek day : DaysOfWeek.values()) {
-            sb.append(day).append("|");
-        }
-        dayRegex = sb.substring(0, sb.length() - 1);
+    private static void initCronRegex() {
+        String mouthRegex = join(Mouths.values());
+        String dayRegex = join(DaysOfWeek.values());
 
         CRON_REGEX = "((([0-5]?[0-9])|\\*)(-[0-5]?[0-9])?(/\\d+)?\\s+){1,2}" +
                 "(([0-2]?[0-9])|\\*)(-[0-2]?[0-9])?(/\\d+)?\\s+" +
                 "(([0-3]?[0-9])|\\*)(-[0-3]?[0-9])?(/\\d+)?\\s+" +
                 "(([0-1]?[0-9])|\\*|" + mouthRegex + ")(-[0-1]?[0-9]|" + mouthRegex + ")?(/\\d+)?\\s+" +
                 "(([0-7])|\\*|" + dayRegex + ")(-[0-7]|" + dayRegex + ")?(/\\d+)?";
+    }
 
+    private static String join(Enum[] enums) {
+        StringBuffer sb = new StringBuffer();
+        for (Enum enm : enums) {
+            sb.append(enm).append("|");
+        }
+        return sb.substring(0, sb.length() - 1);
     }
 
     public static boolean validate(String cron) {
@@ -61,6 +61,7 @@ public class CronUtils {
         private String cron;
         private int[] level_min;
         private int[] level_max;
+        private boolean useMouth = true;
 
         public CronCal setCron(String cron) {
             this.cron = cron;
@@ -193,6 +194,6 @@ public class CronUtils {
 
     public static void main(String[] args) {
         LocalDateTime time = LocalDateTime.of(2014, 12, 31, 23, 59, 59);
-        System.out.println(CronUtils.nextTime("*/1 * * * * *", time));
+        System.out.println(CronUtils.nextTime("*/1 * * * * ?", time));
     }
 }

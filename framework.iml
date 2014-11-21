@@ -28,7 +28,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: com.jcraft:jsch:0.1.51" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.8.2" level="project" />
     <orderEntry type="library" name="Maven: com.jcraft:jsch:0.1.51" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-configuration2:2.0-alpha1" level="project" />
@@ -46,4 +45,3 @@
     <orderEntry type="library" name="Maven: javax.servlet:servlet-api:3.0-alpha-1" level="project" />
   </component>
 </module>
-
