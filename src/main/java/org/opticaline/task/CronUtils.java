@@ -247,7 +247,6 @@ public class CronUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(DaysOfWeek.FRI.value);
         LocalDateTime time = LocalDateTime.of(2014, 12, 31, 23, 59, 59);
         System.out.println(CronUtils.nextTime("*/1 * * * * ?", time));
     }

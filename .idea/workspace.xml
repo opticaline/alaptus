@@ -35,8 +35,8 @@
       <file leaf-file-name="CronUtils.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/opticaline/task/CronUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4629295" vertical-offset="3128" max-vertical-offset="6000">
-              <caret line="151" column="23" selection-start-line="151" selection-start-column="23" selection-end-line="151" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.5660036" vertical-offset="3647" max-vertical-offset="5976">
+              <caret line="175" column="31" selection-start-line="175" selection-start-column="31" selection-end-line="175" selection-end-column="31" />
               <folding>
                 <element signature="e#1682#1683#0" expanded="true" />
                 <element signature="e#1720#1721#0" expanded="true" />
@@ -994,7 +994,7 @@
       <workItem from="1416190836153" duration="4787000" />
       <workItem from="1416274472123" duration="1998000" />
       <workItem from="1416280188655" duration="685000" />
-      <workItem from="1416541810598" duration="4030000" />
+      <workItem from="1416541810598" duration="4215000" />
     </task>
     <task id="LOCAL-00001" summary="new file">
       <created>1411786083486</created>
@@ -1050,11 +1050,17 @@
       <option name="project" value="LOCAL" />
       <updated>1416562288101</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="优化CronUtils.DaysOfWeek &amp; CronUtils.Mouths 枚举类">
+      <created>1416563197869</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1416563197869</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125182000" />
+    <option name="totallyTimeSpent" value="125367000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1137,7 +1143,8 @@
     <MESSAGE value="时间区间已经从字符串提取出来，区间的判断还存在问题" />
     <MESSAGE value="添加时间测试类" />
     <MESSAGE value="优化CronUtils类的static代码块" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化CronUtils类的static代码块" />
+    <MESSAGE value="优化CronUtils.DaysOfWeek &amp; CronUtils.Mouths 枚举类" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化CronUtils.DaysOfWeek &amp; CronUtils.Mouths 枚举类" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1608,8 +1615,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/opticaline/task/CronUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4629295" vertical-offset="3128" max-vertical-offset="6000">
-          <caret line="151" column="23" selection-start-line="151" selection-start-column="23" selection-end-line="151" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.5660036" vertical-offset="3647" max-vertical-offset="5976">
+          <caret line="175" column="31" selection-start-line="175" selection-start-column="31" selection-end-line="175" selection-end-column="31" />
           <folding>
             <element signature="e#1682#1683#0" expanded="true" />
             <element signature="e#1720#1721#0" expanded="true" />
