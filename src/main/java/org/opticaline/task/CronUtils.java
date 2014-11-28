@@ -1,5 +1,7 @@
 package org.opticaline.task;
 
+import org.apache.commons.lang3.time.DateUtils;
+
 import java.time.LocalDateTime;
 
 /**
@@ -18,7 +20,6 @@ public class CronUtils {
         String dayRegex = join(DaysOfWeek.values());
 
         CRON_REGEX = "((([0-5]?[0-9])|\\*)(-[0-5]?[0-9])?(/\\d+)?\\s+){1,2}" +
-                "(([0-5]?[0-9])|\\*)(-[0-5]?[0-9])?(/\\d+)?\\s+){1,2}" +
                 "(([0-2]?[0-9])|\\*)(-[0-2]?[0-9])?(/\\d+)?\\s+" +
                 "(([0-3]?[0-9])|\\*)(-[0-3]?[0-9])?(/\\d+)?\\s+" +
                 "(([0-1]?[0-9])|\\*|" + mouthRegex + ")(-[0-1]?[0-9]|" + mouthRegex + ")?(/\\d+)?\\s+" +
@@ -47,7 +48,7 @@ public class CronUtils {
     }
 
     public static String format(String cron) {
-        if(validate(cron)){
+        if (validate(cron)) {
             //TODO 当检测到cron表达式不合法时的异常处理
             //throw new IllegalCronExpException();
         }
@@ -250,10 +251,5 @@ public class CronUtils {
             }
             return -1;
         }
-    }
-
-    public static void main(String[] args) {
-        LocalDateTime time = LocalDateTime.of(2014, 12, 31, 23, 59, 59);
-        System.out.println(CronUtils.nextTime("*/1 * * * * ?", time));
     }
 }
