@@ -1,5 +1,7 @@
 package org.opticaline.task;
 
+import org.apache.commons.lang3.time.DateUtils;
+
 import java.time.LocalDateTime;
 
 /**
@@ -10,26 +12,26 @@ public class CronUtils {
     private static CronCal CAL = new CronCal();
 
     static {
-        String mouthRegex;
-        String dayRegex;
-        StringBuffer sb = new StringBuffer();
-        for (Mouths mouth : Mouths.values()) {
-            sb.append(mouth).append("|");
-        }
-        mouthRegex = sb.substring(0, sb.length() - 1);
+        initCronRegex();
+    }
 
-        sb = new StringBuffer();
-        for (DaysOfWeek day : DaysOfWeek.values()) {
-            sb.append(day).append("|");
-        }
-        dayRegex = sb.substring(0, sb.length() - 1);
+    private static void initCronRegex() {
+        String mouthRegex = join(Mouths.values());
+        String dayRegex = join(DaysOfWeek.values());
 
         CRON_REGEX = "((([0-5]?[0-9])|\\*)(-[0-5]?[0-9])?(/\\d+)?\\s+){1,2}" +
                 "(([0-2]?[0-9])|\\*)(-[0-2]?[0-9])?(/\\d+)?\\s+" +
                 "(([0-3]?[0-9])|\\*)(-[0-3]?[0-9])?(/\\d+)?\\s+" +
                 "(([0-1]?[0-9])|\\*|" + mouthRegex + ")(-[0-1]?[0-9]|" + mouthRegex + ")?(/\\d+)?\\s+" +
                 "(([0-7])|\\*|" + dayRegex + ")(-[0-7]|" + dayRegex + ")?(/\\d+)?";
+    }
 
+    private static String join(Enum[] enums) {
+        StringBuffer sb = new StringBuffer();
+        for (Enum enm : enums) {
+            sb.append(enm).append("|");
+        }
+        return sb.substring(0, sb.length() - 1);
     }
 
     public static boolean validate(String cron) {
@@ -46,21 +48,81 @@ public class CronUtils {
     }
 
     public static String format(String cron) {
+        if (validate(cron)) {
+            //TODO 当检测到cron表达式不合法时的异常处理
+            //throw new IllegalCronExpException();
+        }
+        //TODO 将cron表达式中的字符串替换为对应的数字，如JAN应替换为Mouths.JAN.value()
         return cron;
     }
 
     public enum Mouths {
-        JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC
+        JAN(1), FEB(2), MAR(3), APR(4), MAY(5), JUN(6), JUL(7), AUG(8), SEP(9), OCT(10), NOV(11), DEC(12);
+        private int value;
+
+        Mouths(int i) {
+            this.value = i;
+        }
+
+        public int value() {
+            return this.value;
+        }
+
+        public Mouths getOf(String str) {
+            for (Mouths mouth : Mouths.values()) {
+                if (mouth.toString().equalsIgnoreCase(str)) {
+                    return mouth;
+                }
+            }
+            return null;
+        }
+
+        public Mouths getOf(int i) {
+            for (Mouths mouth : Mouths.values()) {
+                if (mouth.value == i) {
+                    return mouth;
+                }
+            }
+            return null;
+        }
     }
 
     public enum DaysOfWeek {
-        SUN, MON, TUE, WED, THU, FRI, SAT
+        SUN(0), MON(1), TUE(2), WED(3), THU(4), FRI(5), SAT(6);
+        private int value;
+
+        DaysOfWeek(int i) {
+            this.value = i;
+        }
+
+        public int value() {
+            return this.value;
+        }
+
+        public DaysOfWeek getOf(String str) {
+            for (DaysOfWeek daysOfWeek : DaysOfWeek.values()) {
+                if (daysOfWeek.toString().equalsIgnoreCase(str)) {
+                    return daysOfWeek;
+                }
+            }
+            return null;
+        }
+
+        public DaysOfWeek getOf(int i) {
+            for (DaysOfWeek daysOfWeek : DaysOfWeek.values()) {
+                if (daysOfWeek.value == i) {
+                    return daysOfWeek;
+                }
+            }
+            return null;
+        }
     }
 
     private static class CronCal {
         private String cron;
         private int[] level_min;
         private int[] level_max;
+        private boolean useMouth = true;
 
         public CronCal setCron(String cron) {
             this.cron = cron;
@@ -189,10 +251,5 @@ public class CronUtils {
             }
             return -1;
         }
-    }
-
-    public static void main(String[] args) {
-        LocalDateTime time = LocalDateTime.of(2014, 12, 31, 23, 59, 59);
-        System.out.println(CronUtils.nextTime("*/1 * * * * *", time));
     }
 }

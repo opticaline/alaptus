@@ -47,10 +47,11 @@ public class TaskControlCenter {
     public static void main(String[] args) throws NoSuchMethodException, IllegalCronExpException {
         TaskControlCenter tcc = TaskControlCenter.setup();
         Method test = TaskControlCenter.class.getDeclaredMethod("test");
-        tcc.addMission("* * * * * *", new Object(), test);
+        tcc.addMission("5 * * * * *", new Object(), test);
+        tcc.addMission("3 * * * * *", new Object(), test);
     }
 
-    @Task("* * * * * *")
+    @Task("*/1 * * * * *")
     public static void test() {
         System.out.println("test()" + LocalDateTime.now());
     }
