@@ -1,8 +1,6 @@
 package org.opticaline.framework.core.route;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Nathan on 14-8-27.

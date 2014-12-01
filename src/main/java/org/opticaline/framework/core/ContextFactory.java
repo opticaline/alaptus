@@ -1,7 +1,6 @@
 package org.opticaline.framework.core;
 
 import org.opticaline.framework.core.route.RouteContext;
-import org.opticaline.framework.util.FileUtils;
 
 /**
  * Created by Nathan on 14-8-25.

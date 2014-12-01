@@ -122,7 +122,7 @@ public class Batch {
                         os.flush();
                         close = true;
                     } else if (line.contains("[root@")) {
-                        if(i >= commands.size())
+                        if (i >= commands.size())
                             continue;
                         String command = commands.get(i).toString() + "\r\n";
                         command = command.replaceAll("\\{length\\}", String.valueOf(index));
@@ -134,7 +134,7 @@ public class Batch {
                         }
                         current += "\r\n";
                         i++;
-                    } else if(close){
+                    } else if (close) {
                         is.close();
                         os.close();
                         channel.disconnect();
