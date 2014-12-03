@@ -5,6 +5,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,59 +18,39 @@ public class TaskRuntime implements Runnable {
     private boolean forever = false;
     private List<Mission> missions = new ArrayList<>();
     private List<String> crones = new ArrayList<>();
+    private List<Mission> nextMissions = new ArrayList<>();
 
-    private Mission nextMissions = null;
-
-
-    private int getMinimum(LocalDateTime[] times) {
-        int low;
-        if (times.length > 1) {
-            low = 0;
-            for (int i = 1; i < times.length; i++) {
-                if (times[i].isBefore(times[low])) {
-                    low = i;
-                }
+    private List<Integer> getMinimums(long[] times) {
+        int low = -1;
+        List<Integer> index = new ArrayList<>();
+        for (int i = 0; i < times.length; i++) {
+            if (low == -1 || times[i] < times[low]) {
+                low = i;
+                index.clear();
+                index.add(i);
+            } else {
+                index.add(i);
             }
-            return low;
-        } else if (times.length == 1) {
-            return 0;
-        } else {
-            return -1;
         }
-    }
-
-    private long getTime(LocalDateTime time) throws ParseException {
-        String[] patterns = new String[]{"yyyy-MM-dd'T'hh:mm:ss.SSS", "yyyy-MM-dd'T'hh:mm:ss"};
-        return DateUtils.parseDate(time.format(DateTimeFormatter.ISO_DATE_TIME), patterns).getTime();
+        return index;
     }
 
     @Override
     public void run() {
         while (true) {
-            if (nextMissions != null) {
-                runMission(nextMissions);
-            }
-            /*for (int i = 0; i < nextMissions.size(); i++) {
-                runMission(nextMissions.get(i));
-                nextMissions.remove(i);
-                i--;
-            }*/
-            //计算下一次执行任务的时间点并将需要执行的任务加载到 nextMissions 中
-            LocalDateTime now = LocalDateTime.now().withNano(0);
-            LocalDateTime[] times = new LocalDateTime[missions.size()];
-            for (int i = 0; i < missions.size(); i++) {
-                times[i] = CronUtils.nextTime(crones.get(i), now);
-            }
-            int minimum = getMinimum(times);
-            if (minimum == -1) {
+            if (missions.size() == 0) {
                 forever = true;
             } else {
-                try {
-                    long time = getTime(times[minimum]);
-                    sleep_millis = time - getTime(now);
-                    nextMissions = missions.get(minimum);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                //计算下一次执行任务的时间点并将需要执行的任务加载到 nextMissions 中
+                long now = System.currentTimeMillis(), round = now / 1000 * 1000;
+                long[] times = new long[missions.size()];
+                for (int i = 0; i < missions.size(); i++) {
+                    times[i] = CronUtils.nextLong(crones.get(i), round);
+                }
+                List<Integer> minimums = getMinimums(times);
+                for(int i : minimums){
+                    sleep_millis = times[i] - now;
+                    nextMissions.add(missions.get(i));
                 }
             }
 
@@ -78,6 +59,8 @@ public class TaskRuntime implements Runnable {
             } else {
                 this.waitFor(sleep_millis);
             }
+            nextMissions.forEach(this::runMission);
+            nextMissions.clear();
         }
     }
 

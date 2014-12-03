@@ -1,6 +1,16 @@
 package org.opticaline.task;
 
+import org.apache.commons.lang3.time.DateUtils;
+
+import java.text.ParseException;
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by Nathan on 2014/10/22.
@@ -43,6 +53,16 @@ public class CronUtils {
 
     public static LocalDateTime nextTime(String cron) {
         return nextTime(cron, LocalDateTime.now());
+    }
+
+    public static long nextLong(String cron, LocalDateTime now) {
+        String exp = format(cron);
+        return CAL.setCron(exp).nextLong(now);
+    }
+
+    public static long nextLong(String cron, long now) {
+        String exp = format(cron);
+        return CAL.setCron(exp).nextLong(now);
     }
 
     public static String format(String cron) {
@@ -155,6 +175,21 @@ public class CronUtils {
                 now = exec(exp[i], i, now);
             }
             return now;
+        }
+
+        private long getLong(LocalDateTime now) {
+            return now.toInstant(ZoneOffset.ofHours(TimeZone.getDefault().getRawOffset() / 0x36ee80)).toEpochMilli();
+        }
+
+        public long nextLong(LocalDateTime now) {
+            return getLong(next(now));
+        }
+
+        public long nextLong(long now) {
+            Instant instant = Instant.ofEpochMilli(now);
+            LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, TimeZone.getDefault().toZoneId());
+            return nextLong(localDateTime);
+
         }
 
         private LocalDateTime exec(String str, int level, LocalDateTime now) {
