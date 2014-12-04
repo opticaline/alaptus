@@ -1,7 +1,5 @@
 package org.opticaline.framework.core.annotation;
 
-import org.opticaline.framework.core.format.NoneType;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

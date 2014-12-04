@@ -1,8 +1,9 @@
 package org.opticaline.task;
 
-import org.apache.commons.lang3.time.DateUtils;
-
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.TimeZone;
 
 /**
  * Created by Nathan on 2014/10/22.
@@ -27,7 +28,7 @@ public class CronUtils {
     }
 
     private static String join(Enum[] enums) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (Enum enm : enums) {
             sb.append(enm).append("|");
         }
@@ -40,11 +41,21 @@ public class CronUtils {
 
     public static LocalDateTime nextTime(String cron, LocalDateTime now) {
         String exp = format(cron);
-        return CAL.setCron(exp).next(now);
+        return CAL.init(exp).next(now);
     }
 
     public static LocalDateTime nextTime(String cron) {
         return nextTime(cron, LocalDateTime.now());
+    }
+
+    public static long nextLong(String cron, LocalDateTime now) {
+        String exp = format(cron);
+        return CAL.init(exp).nextLong(now);
+    }
+
+    public static long nextLong(String cron, long now) {
+        String exp = format(cron);
+        return CAL.init(exp).nextLong(now);
     }
 
     public static String format(String cron) {
@@ -124,7 +135,7 @@ public class CronUtils {
         private int[] level_max;
         private boolean useMouth = true;
 
-        public CronCal setCron(String cron) {
+        public CronCal init(String cron) {
             this.cron = cron;
             return this;
         }
@@ -149,14 +160,29 @@ public class CronUtils {
             }
         }
 
-        public LocalDateTime next(LocalDateTime now) {
-            level_max = new int[]{60, 60, 24, now.getMonth().maxLength() + 1, 13, 7};
+        public LocalDateTime next(LocalDateTime time) {
+            level_max = new int[]{60, 60, 24, time.getMonth().maxLength() + 1, 13, 7};
             level_min = new int[]{0, 0, 0, 1, 1, 0};
             String[] exp = cron.split("\\s+");
             for (int i = 0; i < exp.length; i++) {
-                now = exec(exp[i], i, now);
+                time = exec(exp[i], i, time);
             }
-            return now;
+            return time;
+        }
+
+        private long getLong(LocalDateTime now) {
+            return now.toInstant(ZoneOffset.ofHours(TimeZone.getDefault().getRawOffset() / 0x36ee80)).toEpochMilli();
+        }
+
+        public long nextLong(LocalDateTime now) {
+            return getLong(next(now));
+        }
+
+        public long nextLong(long now) {
+            Instant instant = Instant.ofEpochMilli(now);
+            LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, TimeZone.getDefault().toZoneId());
+            return nextLong(localDateTime);
+
         }
 
         private LocalDateTime exec(String str, int level, LocalDateTime now) {

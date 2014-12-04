@@ -1,4 +1,4 @@
-package org.opticaline.framework.util;
+package org.opticaline.framework.utils;
 
 /**
  * Created by Nathan on 14-8-25.

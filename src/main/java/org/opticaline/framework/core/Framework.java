@@ -1,7 +1,7 @@
 package org.opticaline.framework.core;
 
-import org.opticaline.framework.core.route.RouteBean;
 import org.opticaline.framework.core.exception.SetupException;
+import org.opticaline.framework.core.route.RouteBean;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

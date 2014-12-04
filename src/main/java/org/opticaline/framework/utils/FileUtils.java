@@ -1,4 +1,4 @@
-package org.opticaline.framework.util;
+package org.opticaline.framework.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

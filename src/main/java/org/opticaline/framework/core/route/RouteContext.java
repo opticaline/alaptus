@@ -1,16 +1,14 @@
 package org.opticaline.framework.core.route;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.opticaline.framework.core.Context;
 import org.opticaline.framework.core.ContextFactory;
 import org.opticaline.framework.core.config.HttpMethod;
-import org.opticaline.framework.core.Context;
 import org.opticaline.framework.core.exception.IllegalPathException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

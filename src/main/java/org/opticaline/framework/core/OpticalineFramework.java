@@ -3,9 +3,8 @@ package org.opticaline.framework.core;
 import org.opticaline.framework.core.bootstrap.AnnotationScan;
 import org.opticaline.framework.core.config.FrameworkSettings;
 import org.opticaline.framework.core.config.HttpMethod;
-import org.opticaline.framework.core.format.Transaction;
-import org.opticaline.framework.core.route.RouteBean;
 import org.opticaline.framework.core.exception.SetupException;
+import org.opticaline.framework.core.route.RouteBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Writer;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 /**

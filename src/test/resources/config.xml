@@ -23,7 +23,8 @@
         </forwards>
     </login>
     <missions>
-        <mission command="find /home/data/gnbak/http /home/data/gn/xdr/http -type f -name '*201409281[3|4]*.dat' > /tmp/http"/>
+        <mission
+                command="find /home/data/gnbak/http /home/data/gn/xdr/http -type f -name '*201409281[3|4]*.dat' > /tmp/http"/>
         <mission command="scp /tmp/http 10.136.172.112:~/test/{length}" password="UARbj#2014"/>
     </missions>
 </configuration>
