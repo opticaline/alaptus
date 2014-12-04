@@ -1,4 +1,4 @@
-package org.opticaline.framework.util;
+package org.opticaline.framework.utils;
 
 import org.apache.commons.beanutils.PropertyUtils;
 

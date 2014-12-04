@@ -2,7 +2,7 @@ package org.opticaline.framework.core;
 
 import org.opticaline.framework.core.format.Transaction;
 import org.opticaline.framework.core.route.RouteBean;
-import org.opticaline.framework.util.BeanUtils;
+import org.opticaline.framework.utils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

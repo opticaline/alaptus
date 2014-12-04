@@ -3,7 +3,7 @@ package org.opticaline.framework.core;
 import org.dom4j.DocumentException;
 import org.opticaline.framework.core.config.FrameworkSettings;
 import org.opticaline.framework.core.exception.SetupException;
-import org.opticaline.framework.util.PathUtils;
+import org.opticaline.framework.utils.PathUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

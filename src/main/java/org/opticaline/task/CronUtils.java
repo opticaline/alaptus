@@ -28,7 +28,7 @@ public class CronUtils {
     }
 
     private static String join(Enum[] enums) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (Enum enm : enums) {
             sb.append(enm).append("|");
         }

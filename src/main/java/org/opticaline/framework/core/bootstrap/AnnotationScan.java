@@ -6,7 +6,7 @@ import org.opticaline.framework.core.annotation.ParamTransaction;
 import org.opticaline.framework.core.annotation.Route;
 import org.opticaline.framework.core.exception.SetupException;
 import org.opticaline.framework.core.route.RouteContext;
-import org.opticaline.framework.util.FileUtils;
+import org.opticaline.framework.utils.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
