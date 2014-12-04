@@ -1,15 +1,8 @@
 package org.opticaline.task;
 
-import org.apache.commons.lang3.time.DateUtils;
-
-import java.text.ParseException;
-import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -48,7 +41,7 @@ public class CronUtils {
 
     public static LocalDateTime nextTime(String cron, LocalDateTime now) {
         String exp = format(cron);
-        return CAL.setCron(exp).next(now);
+        return CAL.init(exp).next(now);
     }
 
     public static LocalDateTime nextTime(String cron) {
@@ -57,12 +50,12 @@ public class CronUtils {
 
     public static long nextLong(String cron, LocalDateTime now) {
         String exp = format(cron);
-        return CAL.setCron(exp).nextLong(now);
+        return CAL.init(exp).nextLong(now);
     }
 
     public static long nextLong(String cron, long now) {
         String exp = format(cron);
-        return CAL.setCron(exp).nextLong(now);
+        return CAL.init(exp).nextLong(now);
     }
 
     public static String format(String cron) {
@@ -142,7 +135,7 @@ public class CronUtils {
         private int[] level_max;
         private boolean useMouth = true;
 
-        public CronCal setCron(String cron) {
+        public CronCal init(String cron) {
             this.cron = cron;
             return this;
         }
@@ -167,14 +160,14 @@ public class CronUtils {
             }
         }
 
-        public LocalDateTime next(LocalDateTime now) {
-            level_max = new int[]{60, 60, 24, now.getMonth().maxLength() + 1, 13, 7};
+        public LocalDateTime next(LocalDateTime time) {
+            level_max = new int[]{60, 60, 24, time.getMonth().maxLength() + 1, 13, 7};
             level_min = new int[]{0, 0, 0, 1, 1, 0};
             String[] exp = cron.split("\\s+");
             for (int i = 0; i < exp.length; i++) {
-                now = exec(exp[i], i, now);
+                time = exec(exp[i], i, time);
             }
-            return now;
+            return time;
         }
 
         private long getLong(LocalDateTime now) {
