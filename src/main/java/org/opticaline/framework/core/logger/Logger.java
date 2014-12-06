@@ -3,6 +3,7 @@ package org.opticaline.framework.core.logger;
 /**
  * Created by Nathan on 2014/12/6.
  */
+@Deprecated
 public interface Logger {
 
 

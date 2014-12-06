@@ -9,6 +9,7 @@ import java.util.Objects;
 /**
  * Created by Nathan on 2014/12/6.
  */
+@Deprecated
 public class LoggerFactory {
     private static String[] factoryPaths = new String[]{
             "org.slf4j.LoggerFactory",

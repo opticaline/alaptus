@@ -1,7 +1,7 @@
 package org.opticaline.framework.utils;
 
-import org.opticaline.framework.core.logger.LoggerFactory;
-import org.opticaline.framework.core.logger.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.jar.JarFile;
  * Created by Nathan on 14-8-26.
  */
 public class ClassUtils {
-    private static final Logger logger = LoggerFactory.getLogger(ClassUtils.class);
+    private static final Log logger = LogFactory.getLog(ClassUtils.class);
 /*
     public static List<File> scanFiles(String path) {
         System.out.println(path);
