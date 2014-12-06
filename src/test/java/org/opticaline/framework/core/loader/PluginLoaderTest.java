@@ -5,6 +5,7 @@ package org.opticaline.framework.core.loader;
  */
 public class PluginLoaderTest {
     public static void main(String[] args) {
-        
+        LoaderController loader = new LoaderController();
+        loader.load();
     }
 }

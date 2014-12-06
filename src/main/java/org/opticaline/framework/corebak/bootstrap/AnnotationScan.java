@@ -6,7 +6,7 @@ import org.opticaline.framework.corebak.annotation.ParamTransaction;
 import org.opticaline.framework.corebak.annotation.Route;
 import org.opticaline.framework.corebak.exception.SetupException;
 import org.opticaline.framework.corebak.route.RouteContext;
-import org.opticaline.framework.utils.FileUtils;
+import org.opticaline.framework.utils.ClassUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +35,7 @@ public class AnnotationScan {
     }
 
     private AnnotationScan taken() throws URISyntaxException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        Class[] classes = FileUtils.getProjectClassesPath();
+        Class[] classes = ClassUtils.getProjectClassesPath();
         for (int i = 0; i < classes.length; i++) {
             Annotation[] classAnnotations = classes[i].getDeclaredAnnotations();
             for (int j = 0; j < classAnnotations.length; j++) {

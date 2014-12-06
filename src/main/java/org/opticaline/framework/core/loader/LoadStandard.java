@@ -9,6 +9,8 @@ import java.lang.reflect.Parameter;
  */
 public interface LoadStandard {
 
+    public void init();
+
     public void handler(Class[] classes);
 
     public void triggerInterfaces(Class[] classes);
@@ -28,7 +30,5 @@ public interface LoadStandard {
     public void handler(Annotation[] annotations, Class cls, Parameter parameter);
 
     public void triggerAnnotation(Annotation[] annotations, Class cls, Parameter parameter);
-
-    public void init();
 
 }

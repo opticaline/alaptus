@@ -8,6 +8,12 @@ import java.lang.reflect.Parameter;
  * Created by Nathan on 2014/12/4.
  */
 public class PluginLoadModule extends AbstractLoadStandards {
+
+    @Override
+    public void init() {
+
+    }
+
     @Override
     public void triggerInterfaces(Class[] classes) {
 
@@ -25,6 +31,11 @@ public class PluginLoadModule extends AbstractLoadStandards {
 
     @Override
     public void triggerAnnotation(Annotation[] annotations, Class cls, Method method) {
+
+    }
+
+    @Override
+    public void triggerAnnotation(Annotation[] annotations, Class cls, Parameter parameter) {
 
     }
 
