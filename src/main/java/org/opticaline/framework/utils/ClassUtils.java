@@ -5,8 +5,10 @@ import org.apache.commons.logging.LogFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.JarURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -63,30 +65,70 @@ public class ClassUtils {
     }
 
     public static List<String> getPaths() {
+        Enumeration name = System.getProperties().propertyNames();
+        while (name.hasMoreElements()) {
+            String n = name.nextElement().toString();
+            System.out.println(n + "  :  " + System.getProperty(n));
+        }
         String[] jarPaths = System.getProperty("java.class.path").split(";");
         List<String> list = new ArrayList<>();
         Collections.addAll(list, jarPaths);
         return list;
     }
 
-    public static Set<Class> getAllClasses() throws URISyntaxException, ClassNotFoundException, IOException {
-        List<String> path = getPaths();
-        Set<Class> set = new HashSet<>();
-        boolean btn = false;
-        for (String p : path) {
-            if (p.toLowerCase().endsWith(".jar")) {
-                if (btn) {
-                    Collections.addAll(set, getClassesForJar(new JarFile(p)));
+    public static Set<Class> getClasses(String[] pkg) throws IOException {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        Set<Class> set = new LinkedHashSet<>();
+        for (String p : pkg) {
+            Enumeration<URL> enumeration = classLoader.getResources(p);
+            while (enumeration.hasMoreElements()) {
+                URL url = enumeration.nextElement();
+                String protocol = url.getProtocol();
+                if (protocol.equals("jar")) {
+                    try {
+                        Collections.addAll(set, getClassesForJar(((JarURLConnection) url.openConnection())
+                                .getJarFile()));
+                    } catch (ClassNotFoundException | NoClassDefFoundError e) {
+                        logger.trace(p);
+                    }
+                } else {
+                    try {
+                        Collections.addAll(set, getClassPath(scanFiles(p)));
+                    } catch (ClassNotFoundException | URISyntaxException e) {
+                        logger.trace(p);
+                    }
                 }
-            } else {
-                Collections.addAll(set, getClassPath(scanFiles(p)));
-                btn = true;
             }
         }
         return set;
     }
 
-    public static Class[] getClassesForJar(JarFile jar) {
+    /*public static Set<Class> getAllClasses() throws URISyntaxException, IOException {
+        List<String> path = getPaths();
+        Set<Class> set = new HashSet<>();
+        for (String p : path) {
+            if (p.toLowerCase().endsWith(".jar")) {
+                try {
+                    int i = set.size();
+                    Collections.addAll(set, getClassesForJar(new JarFile(p)));
+                    System.out.println(p + (set.size() - i));
+                } catch (ClassNotFoundException | NoClassDefFoundError e) {
+                    logger.trace(p);
+                }
+            } else {
+                try {
+                    int i = set.size();
+                    Collections.addAll(set, getClassPath(scanFiles(p)));
+                    System.out.println(p + (set.size() - i));
+                } catch (ClassNotFoundException e) {
+                    logger.trace(p);
+                }
+            }
+        }
+        return set;
+    }*/
+
+    public static Class[] getClassesForJar(JarFile jar) throws ClassNotFoundException, NoClassDefFoundError {
         Enumeration<JarEntry> entries = jar.entries();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         List<Class> list = new ArrayList<>();
@@ -94,23 +136,9 @@ public class ClassUtils {
             String name = entries.nextElement().getName();
             if (name.endsWith(".class")) {
                 name = name.replaceAll("\\.class$", "").replaceAll("/", ".");
-                try {
-                    list.add(loader.loadClass(name));
-                } catch (Exception | NoClassDefFoundError e) {
-                    logger.info(name);
-                }
+                list.add(loader.loadClass(name));
             }
         }
         return list.toArray(new Class[list.size()]);
-    }
-
-    public static void main(String[] args) throws URISyntaxException, ClassNotFoundException, IOException {
-        /*Enumeration name = System.getProperties().propertyNames();
-        while (name.hasMoreElements()) {
-            String n = name.nextElement().toString();
-            System.out.println(n);
-            System.out.println(System.getProperty(n));
-        }*/
-        System.out.println(getAllClasses());
     }
 }

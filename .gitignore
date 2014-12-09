@@ -3,3 +3,6 @@
 target
 .idea
 framework.iml
+
+src/test/java/org/opticaline/Temp.java
+src/test/java/org/opticaline/ByteUtils.java

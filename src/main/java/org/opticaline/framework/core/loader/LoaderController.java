@@ -1,10 +1,8 @@
 package org.opticaline.framework.core.loader;
 
-import org.apache.commons.lang3.StringUtils;
 import org.opticaline.framework.utils.ClassUtils;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Set;
 
 /**
@@ -13,21 +11,21 @@ import java.util.Set;
 public class LoaderController {
     private Set<Class> all;
 
-    public LoaderController() {
-        init();
-        System.out.println(StringUtils.join(all, " ,"));
+    public LoaderController(String[] pkg) {
+        init(pkg);
+        System.out.println(all.size());
     }
 
-    private void init() {
+    private void init(String[] pkg) {
         try {
-            all = ClassUtils.getAllClasses();
-        } catch (URISyntaxException | ClassNotFoundException | IOException e) {
+            all = ClassUtils.getClasses(pkg);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void load() {
-
+        loadClass(all);
     }
 
     /**
@@ -35,6 +33,12 @@ public class LoaderController {
      */
     public void load(String pgPath) {
 
+    }
+
+    private void loadClass(Set<Class> classes) {
+        for (Class clazz : classes) {
+
+        }
     }
 
     //
