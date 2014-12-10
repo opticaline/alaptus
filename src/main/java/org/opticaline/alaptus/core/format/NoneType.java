@@ -1,0 +1,8 @@
+package org.opticaline.alaptus.core.format;
+
+/**
+ * Created by Nathan on 2014/9/12.
+ */
+@Deprecated
+public class NoneType {
+}

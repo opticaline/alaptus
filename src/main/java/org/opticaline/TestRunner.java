@@ -7,11 +7,13 @@ import java.net.URL;
  */
 public class TestRunner {
 
-    public static void main(String[] args) {
-        String packageName = "";
-        URL url = Thread.currentThread().getContextClassLoader().getResource(packageName);
-        if (url != null) {
-            System.out.println(url.getPath());
-        }
+    @TestParam
+    public String test = "hello";
+
+    @TestParam
+    private String test2 = "world";
+
+    public static void main(String[] args) throws IllegalAccessException {
+        System.out.println(TestRunner.class.getDeclaredFields()[0].getDeclaredAnnotations()[0]);
     }
 }

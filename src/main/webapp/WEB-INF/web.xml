@@ -7,14 +7,14 @@
     <filter>
         <display-name>Web Application</display-name>
         <filter-name>Framework</filter-name>
-        <filter-class>org.opticaline.framework.core.CoreFilter</filter-class>
+        <filter-class>org.opticaline.alaptus.core.CoreFilter</filter-class>
         <init-param>
             <param-name>ApplicationContext</param-name>
             <param-value>classpath:application.xml</param-value>
         </init-param>
         <init-param>
             <param-name>package-scan</param-name>
-            <param-value>org</param-value>
+            <param-value>org.opticaline.alaptus</param-value>
         </init-param>
     </filter>
     <filter-mapping>
