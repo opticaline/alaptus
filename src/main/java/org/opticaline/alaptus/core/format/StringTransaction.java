@@ -1,7 +1,5 @@
 package org.opticaline.alaptus.core.format;
 
-import org.opticaline.alaptus.core.format.Transaction;
-
 import java.util.Map;
 
 /**

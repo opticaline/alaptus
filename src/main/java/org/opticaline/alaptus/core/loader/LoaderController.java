@@ -1,12 +1,9 @@
 package org.opticaline.alaptus.core.loader;
 
-import org.apache.commons.lang3.ArrayUtils;
+import org.opticaline.alaptus.core.annotation.Plugin;
 import org.opticaline.alaptus.utils.ClassUtils;
 
 import java.io.IOException;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.TypeVariable;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -43,38 +40,14 @@ public class LoaderController {
     }
 
     private void load(Set<Class> classes) {
-        Set<AbstractLoadStandards> standards = new LinkedHashSet<>();
         classes.stream()
-                .filter(clazz -> AbstractLoadStandards.class.isAssignableFrom(clazz)
-                        && !Modifier.isAbstract(clazz.getModifiers()))
-                .forEach(clazz -> {
-                    try {
-                        standards.add((AbstractLoadStandards) clazz.newInstance());
-                    } catch (InstantiationException | IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                });
-        classes.stream()
-                .filter(clazz -> {
-                    for (AbstractLoadStandards standard : standards) {
-                        TypeVariable[] variables = standard.getClass().getTypeParameters();
-                        if (variables.length > 0) {
-                            System.out.println(variables[0]);
-                        }
-                        if (ArrayUtils.contains(clazz.getAnnotations(), standard.atParameter)) {
-                            return true;
-                        }
-                    }
-                    return false;
-                })
-                .forEach(clazz -> {
-                    System.out.println(standards.size() + "+++");
-                    for (AbstractLoadStandards standard : standards) {
-                        System.out.println(standard.getClass().getTypeParameters());
-                      /*  if(ArrayUtils.contains(standard.atParameter, )){
-
-                        }*/
-                    }
-                });
+                .filter(clazz -> clazz.getDeclaredAnnotation(Plugin.class) != null)
+                .forEach(clazz -> new PluginHandler(clazz).handler());
     }
+
+    public Set<Class> getClasses() {
+        return all;
+    }
+
+
 }

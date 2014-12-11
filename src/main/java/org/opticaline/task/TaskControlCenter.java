@@ -1,8 +1,8 @@
 package org.opticaline.task;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.opticaline.task.annotation.Task;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * Created by Nathan on 2014/10/16.
  */
 public class TaskControlCenter {
-    private static final Logger logger = LoggerFactory.getLogger(TaskControlCenter.class);
+    private static final Log logger = LogFactory.getLog(TaskControlCenter.class);
     private static TaskControlCenter center;
     private TaskRuntime runtime;
 

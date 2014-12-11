@@ -1,16 +1,14 @@
 package org.opticaline.alaptus.core.bootstrap;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.opticaline.alaptus.core.ApplicationContext;
 import org.opticaline.alaptus.core.ContextFactory;
 import org.opticaline.alaptus.core.annotation.ParamTransaction;
 import org.opticaline.alaptus.core.annotation.Route;
-import org.opticaline.alaptus.core.bootstrap.*;
-import org.opticaline.alaptus.core.bootstrap.AnonymousLoader;
 import org.opticaline.alaptus.core.exception.SetupException;
 import org.opticaline.alaptus.core.route.RouteContext;
 import org.opticaline.alaptus.utils.ClassUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -22,7 +20,7 @@ import java.util.Map;
  * Created by Nathan on 14-8-25.
  */
 public class AnnotationScan {
-    private static final Logger logger = LoggerFactory.getLogger(org.opticaline.alaptus.core.bootstrap.AnnotationScan.class);
+    private static final Log logger = LogFactory.getLog(org.opticaline.alaptus.core.bootstrap.AnnotationScan.class);
 
     private RouteContext routeContext;
     private ApplicationContext context;

@@ -1,9 +1,5 @@
 package org.opticaline.alaptus.core.route;
 
-import org.opticaline.alaptus.core.config.HttpMethod;
-import org.opticaline.alaptus.core.route.*;
-import org.opticaline.alaptus.core.route.RouteBean;
-
 import java.util.HashMap;
 
 /**

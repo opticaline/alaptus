@@ -1,7 +1,6 @@
 package org.opticaline.alaptus.core.format;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.opticaline.alaptus.core.format.Transaction;
 
 import java.util.Map;
 

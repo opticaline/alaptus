@@ -1,14 +1,10 @@
 package org.opticaline.alaptus.core.route;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.opticaline.alaptus.core.Context;
 import org.opticaline.alaptus.core.ContextFactory;
-import org.opticaline.alaptus.core.config.HttpMethod;
-import org.opticaline.alaptus.core.exception.IllegalPathException;
-import org.opticaline.alaptus.core.route.*;
-import org.opticaline.alaptus.core.route.RouteBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +15,7 @@ import java.util.regex.Pattern;
  * Created by Nathan on 14-8-25.
  */
 public class RouteContext extends AbstractRouteNode implements Context {
-    private static final Logger logger = LoggerFactory.getLogger(RouteContext.class);
+    private static final Log logger = LogFactory.getLog(RouteContext.class);
 
     public RouteContext() {
         this.self = new MethodMap();

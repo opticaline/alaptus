@@ -1,10 +1,10 @@
 package org.opticaline.alaptus.core;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.opticaline.alaptus.core.format.Transaction;
 import org.opticaline.alaptus.core.route.RouteBean;
 import org.opticaline.alaptus.utils.BeanUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -13,13 +13,13 @@ import java.util.Map;
  * Created by Nathan on 2014/9/12.
  */
 public class Controller {
-    private static final Logger logger = LoggerFactory.getLogger(Controller.class);
+    private static final Log logger = LogFactory.getLog(Controller.class);
 
     public static Object handler(RouteBean routeBean, Map<String, String[]> parameterMap) throws RuntimeException {
         Object result;
         try {
             result = routeBean.getMethod().invoke(routeBean.getClazz(), argumentsHandler(routeBean, parameterMap));
-            logger.debug("Execute - {}", routeBean.getMethod());
+            logger.debug("Execute - " + routeBean.getMethod());
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException();
         }
@@ -45,14 +45,14 @@ public class Controller {
                         arguments[i] = transaction.format(urlParams,
                                 parameterMap, routeBean.getParamNames(i), arguments[i]);
                     } else {
-                        logger.debug("Not found Transaction for type {}.", clazz);
+                        logger.debug("Not found Transaction for type " + clazz);
                     }
                 } else if (routeBean.getParamNotNull(i)) {
                     if (!clazz.isPrimitive()) {
                         try {
                             arguments[i] = clazz.newInstance();
                         } catch (InstantiationException | IllegalAccessException e) {
-                            logger.error("Can't init parameter type {}.", clazz);
+                            logger.error("Can't init parameter type " + clazz);
                         }
                     }
                 }

@@ -1,12 +1,13 @@
 package org.opticaline.alaptus.core;
 
-import org.opticaline.alaptus.core.loader.LoaderController;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.opticaline.alaptus.core.config.FrameworkSettings;
 import org.opticaline.alaptus.core.config.HttpMethod;
+import org.opticaline.alaptus.core.config.SettingString;
 import org.opticaline.alaptus.core.exception.SetupException;
+import org.opticaline.alaptus.core.loader.LoaderController;
 import org.opticaline.alaptus.core.route.RouteBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +19,7 @@ import java.util.Map;
  * Created by Nathan on 14-8-25.
  */
 public class AlaptusFramework implements Framework {
-    private static final Logger logger = LoggerFactory.getLogger(AlaptusFramework.class);
+    private static final Log logger = LogFactory.getLog(AlaptusFramework.class);
     private FrameworkSettings frameworkSettings;
 
     public AlaptusFramework(FrameworkSettings settings) {
@@ -29,7 +30,7 @@ public class AlaptusFramework implements Framework {
     public void service(HttpServletRequest req, HttpServletResponse resp) {
         HttpMethod method = HttpMethod.valueOf(req.getMethod());
         String uri = req.getRequestURI();
-        logger.debug("{} {} {}", req.getProtocol(), uri, method);
+        logger.debug(req.getProtocol() + " " + uri + " " + method);
         ContextFactory.getApplicationContext().setRequest(req);
         RouteBean action = ContextFactory.getRouteContext().getRoute(uri, method);
         Object result = null;
@@ -64,7 +65,8 @@ public class AlaptusFramework implements Framework {
     @Override
     public void scan() throws SetupException {
         //1.运行PluginLoadModule加载插件
-        LoaderController loader = new LoaderController(new String[]{"org", "org.opticaline"});
+        LoaderController loader = new LoaderController(new String[]{
+                frameworkSettings.get(SettingString.PACKAGE_SCAN), SettingString.DEFAULT_PKG});
         loader.load();
     }
 }

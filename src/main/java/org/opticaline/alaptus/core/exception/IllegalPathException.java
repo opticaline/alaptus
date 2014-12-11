@@ -1,7 +1,5 @@
 package org.opticaline.alaptus.core.exception;
 
-import org.opticaline.alaptus.core.exception.SetupException;
-
 /**
  * Created by Nathan on 14-9-5.
  */
