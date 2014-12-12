@@ -1,10 +1,13 @@
 package org.opticaline.alaptus.utils;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.net.JarURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -18,11 +21,6 @@ import java.util.jar.JarFile;
  */
 public class ClassUtils {
     private static final Log logger = LogFactory.getLog(ClassUtils.class);
-/*
-    public static List<File> scanFiles(String path) {
-        System.out.println(path);
-        return scanFiles(new File(path));
-    }*/
 
     public static List<File> scanFiles(File dir) {
         File[] files = dir.listFiles();
@@ -102,31 +100,6 @@ public class ClassUtils {
         return set;
     }
 
-    /*public static Set<Class> getAllClasses() throws URISyntaxException, IOException {
-        List<String> path = getPaths();
-        Set<Class> set = new HashSet<>();
-        for (String p : path) {
-            if (p.toLowerCase().endsWith(".jar")) {
-                try {
-                    int i = set.size();
-                    Collections.addAll(set, getClassesForJar(new JarFile(p)));
-                    System.out.println(p + (set.size() - i));
-                } catch (ClassNotFoundException | NoClassDefFoundError e) {
-                    logger.trace(p);
-                }
-            } else {
-                try {
-                    int i = set.size();
-                    Collections.addAll(set, getClassPath(scanFiles(p)));
-                    System.out.println(p + (set.size() - i));
-                } catch (ClassNotFoundException e) {
-                    logger.trace(p);
-                }
-            }
-        }
-        return set;
-    }*/
-
     public static Class[] getClassesForJar(JarFile jar) throws ClassNotFoundException, NoClassDefFoundError {
         Enumeration<JarEntry> entries = jar.entries();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -139,5 +112,16 @@ public class ClassUtils {
             }
         }
         return list.toArray(new Class[list.size()]);
+    }
+
+    public static Method[] getMethodsByAnnotation(Class clazz, Class annotation) {
+        Method[] methods = clazz.getDeclaredMethods();
+        Method[] result = new Method[0];
+        for (Method method : methods) {
+            if (method.getAnnotation(annotation) != null) {
+                result = ArrayUtils.add(result, method);
+            }
+        }
+        return result;
     }
 }

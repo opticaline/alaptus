@@ -7,5 +7,5 @@ public class SettingString {
     public static final String TEMPLATE_PATH = "template_path";
     public static final String URI_PARAMETERS = "uri_parameters";
     public static final String DEFAULT_PKG = "org.opticaline.alaptus";
-    public static final String PACKAGE_SCAN = "package-scan";
+    public static final String PACKAGE_SCAN = "/configuration/package-scan";
 }

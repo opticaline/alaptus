@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * Created by Nathan on 2014/12/11.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Plugin {
     int[] value();
 

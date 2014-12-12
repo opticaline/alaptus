@@ -1,10 +1,5 @@
 package org.opticaline.alaptus.core.config;
 
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.XMLConfiguration;
-import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
-import org.apache.commons.configuration2.builder.fluent.Parameters;
-import org.apache.commons.configuration2.builder.fluent.XMLBuilderParameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 
 /**
@@ -12,7 +7,6 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
  */
 public class XMLSettings {
     private String[] paths;
-    private Configuration configuration;
 
     public void setXMLPath(String... paths) {
         this.paths = paths;
@@ -23,19 +17,21 @@ public class XMLSettings {
     }
 
     public void load() throws ConfigurationException {
-        XMLBuilderParameters params = new Parameters().xml();
+        ///XMLBuilderParameters params = new Parameters().xml();
         for (String string : paths) {
-            System.out.println(string);
-            params.setFileName(string);
+            //System.out.println(string);
+            ///params.setFileName(string);
         }
-        FileBasedConfigurationBuilder<XMLConfiguration> builder =
-                new FileBasedConfigurationBuilder<>(XMLConfiguration.class)
-                        .configure(params.setValidating(false));
-        configuration = builder.getConfiguration();
+
+        //FileBasedConfigurationBuilder<XMLConfiguration> builder =
+        //        new FileBasedConfigurationBuilder<>(XMLConfiguration.class)
+        //                .configure(params.setValidating(false));
+        //configuration = builder.getConfiguration();
     }
 
     public String get(String path) {
-        return configuration.getString(path);
+        //添加json配置文件的实现之后改为从json文件读取配置
+        return "org.opticaline";
     }
 
 }
